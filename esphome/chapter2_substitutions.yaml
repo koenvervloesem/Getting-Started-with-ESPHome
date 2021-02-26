@@ -1,0 +1,13 @@
+substitutions:
+  device_name: chapter2_substitutions
+  device_platform: ESP32
+  device_board: featheresp32
+
+esphome:
+  name: $device_name
+  platform: $device_platform
+  board: $device_board
+
+binary_sensor:
+  - platform: status
+    name: "$device_name status"

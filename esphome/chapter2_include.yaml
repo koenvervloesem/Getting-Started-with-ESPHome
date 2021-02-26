@@ -1,0 +1,11 @@
+substitutions:
+  device_name: chapter2_include
+  device_platform: ESP32
+  device_board: featheresp32
+
+<<: !include common/base.yaml
+
+switch:
+  - platform: gpio
+    name: "$device_name LED"
+    pin: GPIO27

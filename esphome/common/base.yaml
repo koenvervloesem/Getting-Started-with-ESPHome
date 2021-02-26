@@ -1,0 +1,29 @@
+esphome:
+  name: $device_name
+  platform: $device_platform
+  board: $device_board
+  build_path: ./build/$device_name
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  ap:
+    ssid: "$device_name"
+    password: !secret wifi_ap_password
+
+captive_portal:
+
+logger:
+
+mqtt:
+  broker: !secret mqtt_broker
+  username: !secret mqtt_username
+  password: !secret mqtt_password
+
+ota:
+  password: !secret ota_password
+
+binary_sensor:
+  - platform: status
+    name: "$device_name status"

@@ -1,0 +1,11 @@
+substitutions:
+  device_name: chapter2_include2
+  device_platform: ESP32
+  device_board: featheresp32
+
+<<: !include common/base.yaml
+
+sensor:
+  - platform: wifi_signal
+    name: "$device_name Signal Sensor"
+    update_interval: 60s

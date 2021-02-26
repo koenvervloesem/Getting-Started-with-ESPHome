@@ -1,0 +1,30 @@
+esphome:
+  name: chapter2_test
+  platform: ESP32
+  board: featheresp32
+
+wifi:
+  ssid: "TEST"
+  password: "test1234"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Test Fallback Hotspot"
+    password: "9dn2HuVfFddQ"
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  password: "test1234"
+
+ota:
+  password: "test1234"
+
+binary_sensor:
+  - platform: gpio
+    pin: GPIO35
+    name: "Button 2"
