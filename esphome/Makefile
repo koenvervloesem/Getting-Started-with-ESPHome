@@ -1,5 +1,5 @@
 BUILD_DIR = build
-YAML_FILES = *.yaml
+YAML_FILES = chapter*.yaml
 
 .PHONY: build clean lint requirements
 
