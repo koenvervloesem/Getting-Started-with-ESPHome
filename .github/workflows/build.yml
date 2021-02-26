@@ -15,7 +15,9 @@ jobs:
         run: sudo make requirements
         working-directory: esphome
       - name: Lint YAML files
-        run: make lint
+        run: |
+          cp secrets.yaml.example secrets.yaml
+          make lint
         working-directory: esphome
       - name: Build code
         run: make build
