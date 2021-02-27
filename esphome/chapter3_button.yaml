@@ -1,0 +1,16 @@
+substitutions:
+  device_name: chapter3_button
+  device_platform: ESP32
+  device_board: featheresp32
+
+packages:
+  base: !include common/base.yaml
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO35
+      inverted: true
+    name: "Button 1"
+
+<<: !include common/mqtt.yaml

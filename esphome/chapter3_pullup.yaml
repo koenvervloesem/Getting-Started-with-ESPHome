@@ -1,0 +1,17 @@
+substitutions:
+  device_name: chapter3_pullup
+  device_platform: ESP32
+  device_board: featheresp32
+
+packages:
+  base: !include common/base.yaml
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO21
+      inverted: true
+      mode: INPUT_PULLUP
+    name: "Button"
+
+<<: !include common/mqtt.yaml
