@@ -27,4 +27,4 @@ ota:
 binary_sensor:
   - platform: gpio
     pin: GPIO35
-    name: "Button 2"
+    name: "Button 1"
