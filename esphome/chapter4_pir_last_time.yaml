@@ -1,0 +1,34 @@
+substitutions:
+  device_name: chapter4_pir_last_time
+  device_platform: ESP32
+  device_board: featheresp32
+
+packages:
+  base: !include common/base.yaml
+
+time:
+  - platform: sntp
+    id: sntp_time
+
+text_sensor:
+  - platform: template
+    id: last_motion_time
+    name: "Last motion"
+
+binary_sensor:
+  - platform: gpio
+    pin: GPIO22
+    name: "PIR sensor"
+    device_class: motion
+    on_press:
+      then:
+        - text_sensor.template.publish:
+            id: last_motion_time
+            state: !lambda |-
+                char str[17];
+                time_t current_time = id(sntp_time).now().timestamp;
+                strftime(str, sizeof(str), "%Y-%m-%d %H:%M",
+                         localtime(&current_time));
+                return str;
+
+<<: !include common/mqtt.yaml

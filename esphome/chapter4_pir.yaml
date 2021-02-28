@@ -1,0 +1,32 @@
+substitutions:
+  device_name: chapter4_pir
+  device_platform: ESP32
+  device_board: featheresp32
+
+packages:
+  base: !include common/base.yaml
+
+output:
+  - platform: ledc
+    pin: GPIO32
+    id: buzzer
+
+binary_sensor:
+  - platform: gpio
+    pin: GPIO21
+    name: "PIR sensor"
+    device_class: motion
+    on_press:
+      then:
+        - output.turn_on: buzzer
+        - output.ledc.set_frequency:
+            id: buzzer
+            frequency: "100Hz"
+        - output.set_level:
+            id: buzzer
+            level: "50%"
+    on_release:
+      then:
+        - output.turn_off: buzzer
+
+<<: !include common/mqtt.yaml

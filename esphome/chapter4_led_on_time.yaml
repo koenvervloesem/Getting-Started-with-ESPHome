@@ -1,0 +1,24 @@
+substitutions:
+  device_name: chapter4_led_on_time
+  device_platform: ESP32
+  device_board: featheresp32
+
+packages:
+  base: !include common/base.yaml
+
+switch:
+  - platform: gpio
+    pin: GPIO32
+    id: led
+
+time:
+  - platform: sntp
+    on_time:
+      - seconds: 0
+        minutes: 30
+        hours: 7
+        days_of_week: MON-FRI
+        then:
+          - switch.turn_on: led
+
+<<: !include common/mqtt.yaml

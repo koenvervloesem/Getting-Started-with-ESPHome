@@ -1,0 +1,34 @@
+substitutions:
+  device_name: chapter4_rtttl
+  device_platform: ESP32
+  device_board: featheresp32
+
+packages:
+  base: !include common/base.yaml
+
+output:
+  - platform: ledc
+    pin: GPIO32
+    id: buzzer
+
+rtttl:
+  output: buzzer
+
+binary_sensor:
+  - platform: gpio
+    pin: GPIO21
+    name: "PIR sensor"
+    device_class: motion
+    on_press:
+      then:
+        - rtttl.play: 'siren:d=8,o=5,b=50:d,e,d,e,d,e,d,e'
+        # - rtttl.play: 'two short:d=4,o=5,b=100:16e6,16e6'
+        # - rtttl.play: 'MissionImp:d=16,o=6,b=95:32d,32d#,32d,32d#,32d,32d#,32d,32d#,32d,32d,32d#,32e,32f,32f#,32g,g,8p,g,8p,a#,p,c7,p,g,8p,g,8p,f,p,f#,p,g,8p,g,8p,a#,p,c7,p,g,8p,g,8p,f,p,f#,p,a#,g,2d,32p,a#,g,2c#,32p,a#,g,2c,a#5,8c,2p,32p,a#5,g5,2f#,32p,a#5,g5,2f,32p,a#5,g5,2e,d#,8d'
+        # - rtttl.play: 'FurElise:d=4,o=5,b=125:8e6,8d#6,8e6,8d#6,8e6,8b,8d6,8c6,a,8p,8c,8e,8a,b,8p,8e,8g#,8b,c6,p,8e,8e6,8d#6,8e6,8d#6,8e6,8b,8d6,8c6,a,8p,8c,8e,8a,b,8p,8e,8c6,8b,2a'
+        # - rtttl.play: 'BSG:d=4,o=5,b=120:8e,16e,16e,8b,16b,16b,8e6,16e6,16e6,16d6,16c#6,8b,8d6,16d6,16d6,16c#6,16b,8a,8c#6,8a,b,8e,16e,16e,8b,16b,16b,8e6,16e6,16e6,16d6,16c#6,8b,8e6,16e6,16e6,16d6,16c#6,8b,8c#6,8d6,8a.,16c#6,8b,e'
+        # - rtttl.play: 'HauntHouse: d=4,o=5,b=108: 2a4, 2e, 2d#, 2b4, 2a4, 2c, 2d, 2a#4, 2e., e, 1f4, 1a4, 1d#, 2e., d, 2c., b4, 1a4, 1p, 2a4, 2e, 2d#, 2b4, 2a4, 2c, 2d, 2a#4, 2e., e, 1f4, 1a4, 1d#, 2e., d, 2c., b4, 1a4'
+    on_release:
+      then:
+        - rtttl.stop
+
+<<: !include common/mqtt.yaml

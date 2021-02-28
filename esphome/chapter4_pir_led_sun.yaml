@@ -1,0 +1,42 @@
+substitutions:
+  device_name: chapter4_pir_led_sun
+  device_platform: ESP32
+  device_board: featheresp32
+
+packages:
+  base: !include common/base.yaml
+
+time:
+  - platform: sntp
+
+sun:
+  latitude: 51.0641
+  longitude: 5.8527
+
+switch:
+  - platform: gpio
+    pin: GPIO32
+    id: led
+
+binary_sensor:
+  - platform: gpio
+    pin: GPIO22
+    name: "PIR sensor"
+    device_class: motion
+    on_press:
+      then:
+        - if:
+            condition:
+              - sun.is_below_horizon:
+            then:
+              - script.execute: turn_on_led
+
+script:
+  - id: turn_on_led
+    mode: restart
+    then:
+      - switch.turn_on: led
+      - delay: 1min
+      - switch.turn_off: led
+
+<<: !include common/mqtt.yaml
