@@ -1,0 +1,24 @@
+substitutions:
+  device_name: chapter5_bme280
+  device_platform: ESP32
+  device_board: featheresp32
+
+packages:
+  base: !include common/base.yaml
+
+i2c:
+  sda: 21
+  scl: 22
+
+sensor:
+  - platform: bme280
+    temperature:
+      name: "Temperature"
+    pressure:
+      name: "Pressure"
+    humidity:
+      name: "Humidity"
+    address: 0x76
+    update_interval: 60s
+
+<<: !include common/mqtt.yaml

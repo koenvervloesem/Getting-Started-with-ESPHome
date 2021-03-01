@@ -1,0 +1,22 @@
+substitutions:
+  device_name: chapter5_ds18b20_full
+  device_platform: ESP32
+  device_board: featheresp32
+
+packages:
+  base: !include common/base.yaml
+
+switch:
+  - platform: gpio
+    pin: GPIO32
+    id: led
+
+dallas:
+  - pin: GPIO17
+
+sensor:
+  - platform: dallas
+    address: 0x72CCE62F776F2A28
+    name: "Temperature"
+
+<<: !include common/mqtt.yaml

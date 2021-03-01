@@ -1,0 +1,50 @@
+substitutions:
+  device_name: chapter5_ntc
+  device_platform: ESP32
+  device_board: featheresp32
+
+packages:
+  base: !include common/base.yaml
+
+switch:
+  - platform: gpio
+    pin: GPIO25
+    id: ntc_vcc
+  - platform: gpio
+    pin: GPIO32
+    id: led
+
+sensor:
+  - platform: adc
+    pin: GPIO33
+    attenuation: 11db
+    id: source_sensor
+    update_interval: never
+  - platform: resistance
+    id: resistance_sensor
+    sensor: source_sensor
+    configuration: DOWNSTREAM
+    resistor: 10kOhm
+  - platform: ntc
+    sensor: resistance_sensor
+    calibration:
+      b_constant: 3950
+      reference_temperature: 25°C
+      reference_resistance: 10kOhm
+    name: Temperature
+    on_value_range:
+      - above: 25
+        then:
+          - switch.turn_on: led
+      - below: 25
+        then:
+          - switch.turn_off: led
+
+interval:
+  - interval: 1min
+    then:
+      - switch.turn_on: ntc_vcc
+      - component.update: source_sensor
+      - switch.turn_off: ntc_vcc
+
+<<: !include common/mqtt.yaml
