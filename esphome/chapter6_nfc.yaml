@@ -1,0 +1,40 @@
+substitutions:
+  device_name: chapter6_nfc
+  device_platform: ESP32
+  device_board: featheresp32
+
+packages:
+  base: !include common/base.yaml
+
+output:
+  - platform: ledc
+    pin: GPIO32
+    id: buzzer
+
+rtttl:
+  output: buzzer
+
+spi:
+  clk_pin: GPIO33
+  miso_pin: GPIO25
+  mosi_pin: GPIO26
+
+pn532_spi:
+  cs_pin: GPIO27
+  update_interval: 1s
+
+binary_sensor:
+  - platform: pn532
+    uid: 87-72-5D-C9
+    name: "NFC Tag"
+    on_press:
+      then:
+        - rtttl.play: 'up:d=4,o=5,b=100:32c6,16b6'
+  - platform: pn532
+    uid: 57-DE-94-B4
+    name: "NFC Card"
+    on_press:
+      then:
+        - rtttl.play: 'down:d=4,o=5,b=100:32b6,16c6'
+
+<<: !include common/mqtt.yaml

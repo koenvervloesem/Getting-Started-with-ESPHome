@@ -1,0 +1,19 @@
+substitutions:
+  device_name: chapter6_ble
+  device_platform: ESP32
+  device_board: featheresp32
+
+packages:
+  base: !include common/base.yaml
+
+esp32_ble_tracker:
+
+binary_sensor:
+  - platform: ble_presence
+    mac_address: 40:B8:37:1C:4F:01
+    name: "BLE Tag"
+  - platform: ble_presence
+    service_uuid: '180d'
+    name: "Fitness tracker"
+
+<<: !include common/mqtt.yaml

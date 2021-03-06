@@ -1,0 +1,20 @@
+substitutions:
+  device_name: chapter6_ir_transmitter
+  device_platform: ESP32
+  device_board: featheresp32
+
+packages:
+  base: !include common/base.yaml
+
+remote_transmitter:
+  pin: GPIO32
+  carrier_duty_percent: 50%
+
+switch:
+  - platform: template
+    name: "Samsung TV Power"
+    turn_on_action:
+      - remote_transmitter.transmit_samsung:
+          data: 0xE0E040BF
+
+<<: !include common/mqtt.yaml

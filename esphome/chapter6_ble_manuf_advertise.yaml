@@ -1,0 +1,35 @@
+substitutions:
+  device_name: chapter6_ble_manuf_advertise
+  device_platform: ESP32
+  device_board: featheresp32
+
+packages:
+  base: !include common/base.yaml
+
+esp32_ble_tracker:
+  on_ble_manufacturer_data_advertise:
+    - manufacturer_id: 0499
+      then:
+        - lambda: |-
+            std::string data_string;
+            data_string.resize(x.size() * 2);
+            const char letters[] = "0123456789ABCDEF";
+            char* current_hex_char = &data_string[0];
+            for (uint8_t b : x) {
+                *current_hex_char++ = letters[b >> 4];
+                *current_hex_char++ = letters[b & 0xf];
+            }
+            id(manufacturer_data).publish_state(data_string.c_str());
+            std::string data;
+            data.assign(x.begin(), x.end());
+            id(manufacturer_data_str).publish_state(data.c_str());
+
+text_sensor:
+  - platform: template
+    name: "Manufacturer Binary Data"
+    id: manufacturer_data
+  - platform: template
+    name: "Manufacturer String Data"
+    id: manufacturer_data_str
+
+<<: !include common/mqtt.yaml

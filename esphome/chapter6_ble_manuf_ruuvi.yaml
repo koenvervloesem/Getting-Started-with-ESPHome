@@ -1,0 +1,24 @@
+substitutions:
+  device_name: chapter6_ble_manuf_ruuvi
+  device_platform: ESP32
+  device_board: featheresp32
+
+packages:
+  base: !include common/base.yaml
+
+esp32_ble_tracker:
+  on_ble_manufacturer_data_advertise:
+    - manufacturer_id: 0499
+      then:
+        - lambda: |-
+            uint8_t temp_sign = (x[2] >> 7) & 1;
+            float temp_val = (x[2] & 0x7F) + (x[3] / 100.0f);
+            float temp = temp_sign == 0 ? temp_val : -1 * temp_val;
+            id(temperature).publish_state(temp);
+
+sensor:
+  - platform: template
+    name: "Temperature"
+    id: temperature
+
+<<: !include common/mqtt.yaml

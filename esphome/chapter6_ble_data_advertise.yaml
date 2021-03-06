@@ -1,0 +1,24 @@
+substitutions:
+  device_name: chapter6_ble_data_advertise
+  device_platform: ESP32
+  device_board: featheresp32
+
+packages:
+  base: !include common/base.yaml
+
+esp32_ble_tracker:
+  on_ble_service_data_advertise:
+    - mac_address: EB:76:55:B9:56:18
+      service_uuid: 180F
+      then:
+        - lambda: 'id(battery_sensor).publish_state(x[0]);'
+
+sensor:
+  - platform: template
+    name: "Battery Sensor"
+    id: battery_sensor
+    accuracy_decimals: 0
+    unit_of_measurement: '%'
+    icon: 'mdi:battery'
+
+<<: !include common/mqtt.yaml

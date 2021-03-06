@@ -1,0 +1,31 @@
+substitutions:
+  device_name: chapter6_ir_receiver
+  device_platform: ESP32
+  device_board: featheresp32
+
+packages:
+  base: !include common/base.yaml
+
+remote_receiver:
+  pin:
+    number: GPIO17
+    inverted: True
+  dump: all
+
+binary_sensor:
+  - platform: remote_receiver
+    name: "Samsung Remote Input"
+    samsung:
+      data: 0xE0E040BF
+    filters:
+      - delayed_off: 200ms
+    on_press:
+      then:
+        - switch.toggle: led
+
+switch:
+  - platform: gpio
+    pin: GPIO32
+    id: led
+
+<<: !include common/mqtt.yaml
