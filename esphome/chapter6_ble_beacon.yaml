@@ -6,10 +6,10 @@ substitutions:
 packages:
   base: !include common/base.yaml
 
-esp32_ble_beacon :
-  type : iBeacon
-  uuid : '954813ed-20e5-4f4c-af04-82854791c88a'
-  major : 54321
-  minor : 12345
+esp32_ble_beacon:
+  type: iBeacon
+  uuid: '954813ed-20e5-4f4c-af04-82854791c88a'
+  major: 54321
+  minor: 12345
 
 <<: !include common/mqtt.yaml
