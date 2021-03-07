@@ -1,0 +1,37 @@
+substitutions:
+  device_name: chapter7_oled
+  device_platform: ESP32
+  device_board: featheresp32
+
+packages:
+  base: !include common/base.yaml
+
+i2c:
+  sda: 21
+  scl: 22
+
+sensor:
+  - platform: bme280
+    temperature:
+      name: "Temperature"
+      id: temperature
+    humidity:
+      name: "Humidity"
+      id: humidity
+    address: 0x76
+    update_interval: 60s
+
+font:
+  - file: "fonts/Roboto-Medium.ttf"
+    id: font_roboto
+    size: 22
+
+display:
+  - platform: ssd1306_i2c
+    model: "SSD1306 128x64"
+    address: 0x3C
+    lambda: |-
+      it.printf(0, 0, id(font_roboto), "Temp: %.0f °C", id(temperature).state);
+      it.printf(0, it.get_height()/2, id(font_roboto), "Humi: %.0f %%", id(humidity).state);
+
+<<: !include common/mqtt.yaml

@@ -1,0 +1,26 @@
+substitutions:
+  device_name: chapter7_clock
+  device_platform: ESP32
+  device_board: featheresp32
+
+packages:
+  base: !include common/base.yaml
+
+time:
+  - platform: sntp
+    id: sntp_time
+
+display:
+  platform: tm1637
+  clk_pin: GPIO15
+  dio_pin: GPIO17
+  update_interval: 500ms
+  lambda: |-
+      static int i = 0;
+      i = !i;
+      if(i)
+        it.strftime("%H.%M", id(sntp_time).now());
+      else
+        it.strftime("%H%M", id(sntp_time).now());
+
+<<: !include common/mqtt.yaml

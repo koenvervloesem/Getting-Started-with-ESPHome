@@ -1,0 +1,130 @@
+substitutions:
+  device_name: chapter7_pages
+  device_platform: ESP32
+  device_board: featheresp32
+
+packages:
+  base: !include common/base.yaml
+
+sensor:
+  - platform: mqtt_subscribe
+    id: sensor_pm1
+    topic: m5stack_air_quality/sensor/pm1/state
+  - platform: mqtt_subscribe
+    id: sensor_pm25
+    topic: m5stack_air_quality/sensor/pm25/state
+  - platform: mqtt_subscribe
+    id: sensor_pm10
+    topic: m5stack_air_quality/sensor/pm10/state
+  - platform: mqtt_subscribe
+    id: sensor_office_temperature
+    topic: rtl433/Prologue-TH/3/83/temperature_C
+  - platform: mqtt_subscribe
+    id: sensor_office_humidity
+    topic: rtl433/Prologue-TH/3/83/humidity
+
+time:
+  - platform: sntp
+    id: sntp_time
+
+binary_sensor:
+  - platform: gpio
+    id: button1
+    pin:
+      number: GPIO35
+      inverted: true
+    on_click:
+      then:
+        - switch.toggle: backlight
+  - platform: gpio
+    id: button2
+    pin:
+      number: GPIO0
+      inverted: true
+      mode: INPUT_PULLUP
+    on_click:
+      then:
+        - display.page.show_next: ttgo_tdisplay
+        - component.update: ttgo_tdisplay
+
+switch:
+  - platform: gpio
+    pin: GPIO4
+    name: "Backlight"
+    id: backlight
+
+font:
+  - file: "fonts/Roboto-Medium.ttf"
+    id: font_roboto
+    size: 22
+    glyphs: '!"%()+,-_.:°0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz/³µ&'
+  - file: "fonts/Roboto-Medium.ttf"
+    id: font_roboto_clock
+    size: 44
+    glyphs: ':0123456789'
+
+color:
+  - id: color_blue
+    red: 0%
+    green: 0%
+    blue: 100%
+  - id: color_red
+    red: 100%
+    green: 0%
+    blue: 0%
+  - id: color_white
+    red: 100%
+    green: 100%
+    blue: 100%
+
+spi:
+  clk_pin: GPIO18
+  mosi_pin: GPIO19
+
+display:
+  - platform: st7789v
+    id: ttgo_tdisplay
+    backlight_pin: GPIO4
+    cs_pin: GPIO5
+    dc_pin: GPIO16
+    reset_pin: GPIO23
+    rotation: 270
+    update_interval: 1s
+    pages:
+      - id: page1
+        lambda: |-
+          // Header
+          it.rectangle(0,  0, it.get_width(), it.get_height(), id(color_blue));
+          it.rectangle(0, 32, it.get_width(), it.get_height(), id(color_blue));
+          it.print(it.get_width() / 2, 16, id(font_roboto), id(color_red), TextAlign::CENTER, "Particulate matter");
+          // Particle size
+          it.print(11,  44, id(font_roboto), id(color_white), TextAlign::LEFT, "PM1");
+          it.print(11,  66, id(font_roboto), id(color_white), TextAlign::LEFT, "PM2.5");
+          it.print(11,  88, id(font_roboto), id(color_white), TextAlign::LEFT, "PM10");
+          // Measurements
+          it.printf(it.get_width() - 11,  44, id(font_roboto), id(color_white), TextAlign::RIGHT, "%.0f µg/m³", id(sensor_pm1).state);
+          it.printf(it.get_width() - 11,  66, id(font_roboto), id(color_white), TextAlign::RIGHT, "%.0f µg/m³", id(sensor_pm25).state);
+          it.printf(it.get_width() - 11,  88, id(font_roboto), id(color_white), TextAlign::RIGHT, "%.0f µg/m³", id(sensor_pm10).state);
+      - id: page2
+        lambda: |-
+          // Header
+          it.rectangle(0,  0, it.get_width(), it.get_height(), id(color_blue));
+          it.rectangle(0, 32, it.get_width(), it.get_height(), id(color_blue));
+          it.print(it.get_width() / 2, 16, id(font_roboto), id(color_red), TextAlign::CENTER, "Office");
+          // Particle size
+          it.print(11,  55, id(font_roboto), id(color_white), TextAlign::LEFT, "Temperature");
+          it.print(11,  77, id(font_roboto), id(color_white), TextAlign::LEFT, "Humidity");
+          // Measurements
+          it.printf(it.get_width() - 11,  55, id(font_roboto), id(color_white), TextAlign::RIGHT, "%.0f °C", id(sensor_office_temperature).state);
+          it.printf(it.get_width() - 11,  77, id(font_roboto), id(color_white), TextAlign::RIGHT, "%.0f %% ", id(sensor_office_humidity).state);
+      - id: page3
+        lambda: |-
+          // Header
+          it.rectangle(0,  0, it.get_width(), it.get_height(), id(color_blue));
+          it.rectangle(0, 32, it.get_width(), it.get_height(), id(color_blue));
+          it.print(it.get_width() / 2, 16, id(font_roboto), id(color_red), TextAlign::CENTER, "Date & time");
+          // Date and time
+          it.strftime((240 / 2), (140 / 3) * 1 + 5, id(font_roboto), id(color_white), TextAlign::CENTER, "%Y-%m-%d", id(sntp_time).now());
+          it.strftime((240 / 2), (140 / 3) * 2 + 5, id(font_roboto_clock), id(color_white), TextAlign::CENTER, "%H:%M:%S", id(sntp_time).now());
+
+<<: !include common/mqtt.yaml

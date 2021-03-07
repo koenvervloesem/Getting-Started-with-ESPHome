@@ -1,0 +1,65 @@
+substitutions:
+  device_name: chapter7_tdisplay_mqtt
+  device_platform: ESP32
+  device_board: featheresp32
+
+packages:
+  base: !include common/base.yaml
+
+sensor:
+  - platform: mqtt_subscribe
+    id: sensor_pm1
+    topic: m5stack_air_quality/sensor/pm1/state
+  - platform: mqtt_subscribe
+    id: sensor_pm25
+    topic: m5stack_air_quality/sensor/pm25/state
+  - platform: mqtt_subscribe
+    id: sensor_pm10
+    topic: m5stack_air_quality/sensor/pm10/state
+
+font:
+  - file: "fonts/Roboto-Medium.ttf"
+    id: font_roboto
+    size: 22
+    glyphs: '!"%()+,-_.:°0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz/³µ'
+
+color:
+  - id: color_blue
+    red: 0%
+    green: 0%
+    blue: 100%
+  - id: color_red
+    red: 100%
+    green: 0%
+    blue: 0%
+  - id: color_white
+    red: 100%
+    green: 100%
+    blue: 100%
+
+spi:
+  clk_pin: GPIO18
+  mosi_pin: GPIO19
+
+display:
+  - platform: st7789v
+    backlight_pin: GPIO4
+    cs_pin: GPIO5
+    dc_pin: GPIO16
+    reset_pin: GPIO23
+    rotation: 270
+    lambda: |-
+      // Header
+      it.rectangle(0,  0, it.get_width(), it.get_height(), id(color_blue));
+      it.rectangle(0, 32, it.get_width(), it.get_height(), id(color_blue));
+      it.print(it.get_width() / 2, 16, id(font_roboto), id(color_red), TextAlign::CENTER, "Particulate matter");
+      // Particle size
+      it.print(11,  44, id(font_roboto), id(color_white), TextAlign::LEFT, "PM1");
+      it.print(11,  66, id(font_roboto), id(color_white), TextAlign::LEFT, "PM2.5");
+      it.print(11,  88, id(font_roboto), id(color_white), TextAlign::LEFT, "PM10");
+      // Measurements
+      it.printf(it.get_width() - 11,  44, id(font_roboto), id(color_white), TextAlign::RIGHT, "%.0f µg/m³", id(sensor_pm1).state);
+      it.printf(it.get_width() - 11,  66, id(font_roboto), id(color_white), TextAlign::RIGHT, "%.0f µg/m³", id(sensor_pm25).state);
+      it.printf(it.get_width() - 11,  88, id(font_roboto), id(color_white), TextAlign::RIGHT, "%.0f µg/m³", id(sensor_pm10).state);
+
+<<: !include common/mqtt.yaml

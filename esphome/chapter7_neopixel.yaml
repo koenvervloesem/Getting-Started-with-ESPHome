@@ -1,0 +1,38 @@
+substitutions:
+  device_name: chapter7_neopixel
+  device_platform: ESP32
+  device_board: featheresp32
+
+packages:
+  base: !include common/base.yaml
+
+light:
+  - platform: fastled_clockless
+    chipset: WS2812
+    pin: GPIO22
+    num_leds: 8
+    rgb_order: BRG
+    id: led_strip
+
+sensor:
+  - platform: ultrasonic
+    trigger_pin: GPIO21
+    echo_pin: GPIO37
+    name: "Distance"
+    update_interval: 1s
+    on_value:
+      - then:
+          - light.addressable_set:
+              id: led_strip
+              red: 0%
+              green: 0%
+              blue: 0%
+          - light.addressable_set:
+              id: led_strip
+              range_from: !lambda |-
+                return min(8, (int)(10 * x));
+              red: 100%
+              green: 0%
+              blue: 0%
+
+<<: !include common/mqtt.yaml

@@ -1,0 +1,84 @@
+substitutions:
+  device_name: chapter7_matrix
+  device_platform: ESP32
+  device_board: featheresp32
+
+packages:
+  base: !include common/base.yaml
+
+globals:
+  - id: nfc_ok
+    type: int
+    initial_value: '0'
+
+script:
+  - id: clear_screen_after_tag
+    mode: restart
+    then:
+      - delay: 5s
+      - globals.set:
+          id: nfc_ok
+          value: '0'
+
+spi:
+  clk_pin: GPIO33
+  miso_pin: GPIO25
+  mosi_pin: GPIO26
+
+pn532_spi:
+  cs_pin: GPIO27
+  update_interval: 1s
+  on_tag:
+    then:
+      - lambda: |-
+          if(strcmp(x.c_str(), "87-72-5D-C9") == 0) {
+            id(nfc_ok) = 1;
+          } else if(strcmp(x.c_str(), "57-DE-94-B4") == 0) {
+            id(nfc_ok) = 1;
+          } else {
+            id(nfc_ok) = -1;
+          }
+      - script.execute: clear_screen_after_tag
+
+display:
+  - platform: max7219digit
+    id: matrix_display
+    cs_pin: 32
+    num_chips: 1
+    rotate_chip: 180
+    lambda: |-
+      if(id(nfc_ok) == 1) {
+        it.fill(COLOR_OFF);
+        it.line(0, 2, 0, 5);
+        it.line(7, 2, 7, 5);
+        it.line(2, 0, 5, 0);
+        it.line(2, 7, 5, 7);
+        it.draw_pixel_at(1, 1);
+        it.draw_pixel_at(1, 6);
+        it.draw_pixel_at(6, 1);
+        it.draw_pixel_at(6, 6);
+        it.draw_pixel_at(2, 2);
+        it.draw_pixel_at(2, 5);
+        it.draw_pixel_at(4, 2);
+        it.draw_pixel_at(4, 5);
+        it.line(5, 3, 5, 4);
+      } else if(id(nfc_ok) == -1) {
+        it.fill(COLOR_OFF);
+        it.line(0, 2, 0, 5);
+        it.line(7, 2, 7, 5);
+        it.line(2, 0, 5, 0);
+        it.line(2, 7, 5, 7);
+        it.draw_pixel_at(1, 1);
+        it.draw_pixel_at(1, 6);
+        it.draw_pixel_at(6, 1);
+        it.draw_pixel_at(6, 6);
+        it.draw_pixel_at(2, 2);
+        it.draw_pixel_at(2, 5);
+        it.line(4, 3, 4, 4);
+        it.draw_pixel_at(5, 2);
+        it.draw_pixel_at(5, 5);
+      } else if(id(nfc_ok) == 0) {
+        it.fill(COLOR_OFF);
+      }
+
+<<: !include common/mqtt.yaml
