@@ -9,7 +9,7 @@ packages:
 remote_receiver:
   pin:
     number: GPIO17
-    inverted: True
+    inverted: true
   dump: all
 
 binary_sensor:
