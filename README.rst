@@ -1,16 +1,16 @@
-#############################
-HOW2 Get Started with ESPHome
-#############################
+############################
+Getting Started with ESPHome
+############################
 
-.. image:: https://github.com/koenvervloesem/HOW2-Get-Started-with-ESPHome/workflows/Build/badge.svg
-   :target: https://github.com/koenvervloesem/HOW2-Get-Started-with-ESPHome/actions
+.. image:: https://github.com/koenvervloesem/Getting-Started-with-ESPHome/workflows/Build/badge.svg
+   :target: https://github.com/koenvervloesem/Getting-Started-with-ESPHome/actions
    :alt: Continuous integration
 
-.. image:: https://img.shields.io/github/license/koenvervloesem/HOW2-Get-Started-with-ESPHome.svg
-   :target: https://github.com/koenvervloesem/HOW2-Get-Started-with-ESPHome/blob/master/LICENSE
+.. image:: https://img.shields.io/github/license/koenvervloesem/Getting-Started-with-ESPHome.svg
+   :target: https://github.com/koenvervloesem/Getting-Started-with-ESPHome/blob/master/LICENSE
    :alt: License
 
-This repository contains the code discussed in the book `HOW2 Get Started with ESPHome <https://koen.vervloesem.eu/books/how2-get-started-with-esphome/>`_, published by `Elektor International Media <https://www.elektor.com>`_, as well as `a list of errors and their corrections <ERRATA.rst>`_ and some `additional tips and references <ADDITIONS.rst>`_.
+This repository contains the code discussed in the book `Getting Started with ESPHome <https://koen.vervloesem.eu/books/getting-started-with-esphome/>`_, published by `Elektor International Media <https://www.elektor.com>`_, as well as `a list of errors and their corrections <ERRATA.rst>`_ and some `additional tips and references <ADDITIONS.rst>`_.
 
 **************
 About the book
