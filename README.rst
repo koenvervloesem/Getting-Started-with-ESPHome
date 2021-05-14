@@ -16,7 +16,20 @@ This repository contains the code discussed in the book `Getting Started with ES
 About the book
 **************
 
-TODO
+Espressif's ESP8266 and ESP32 microcontrollers have brought DIY home automation to the masses. However, not everyone is fluent in programming these microcontrollers with Espressif's C/C++ SDK, the Arduino core, or MicroPython. This is where ESPHome comes into its own: with this project, you don't *program* your microcontroller but *configure* it.
+
+This book demonstrates how to create your own home automation devices with ESPHome on an ESP32 microcontroller board. You'll learn how to combine all kinds of electronic components and automate complex behaviours. Your devices can work completely autonomously, and connect over Wi-Fi to your home automation gateways such as Home Assistant or MQTT broker.
+
+By the end of this book, you will be able to create your own custom home automation devices the way you want. Thanks to ESPHome and the ESP32, this is within everyone's grasp.
+
+* Set up an ESPHome development environment and create maintainable configurations
+* Use buttons and LEDs
+* Sound a buzzer and play melodies
+* Read measurements from various types of sensors
+* Communicate over a short distance with NFC, infrared light, and Bluetooth Low Energy
+* Show information on various types of displays
+
+TODO: table
 
 *************
 Included code
