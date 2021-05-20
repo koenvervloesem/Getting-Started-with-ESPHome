@@ -7,7 +7,7 @@ Getting Started with ESPHome
    :alt: Continuous integration
 
 .. image:: https://img.shields.io/github/license/koenvervloesem/Getting-Started-with-ESPHome.svg
-   :target: https://github.com/koenvervloesem/Getting-Started-with-ESPHome/blob/master/LICENSE
+   :target: https://github.com/koenvervloesem/Getting-Started-with-ESPHome/blob/main/LICENSE
    :alt: License
 
 This repository contains the code discussed in the book `Getting Started with ESPHome <https://koen.vervloesem.eu/books/getting-started-with-esphome/>`_, published by `Elektor International Media <https://www.elektor.com>`_, as well as `a list of errors and their corrections <ERRATA.rst>`_ and some `additional tips and references <ADDITIONS.rst>`_.
