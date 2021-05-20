@@ -29,19 +29,47 @@ By the end of this book, you will be able to create your own custom home automat
 * Communicate over a short distance with NFC, infrared light, and Bluetooth Low Energy
 * Show information on various types of displays
 
-TODO: table
++----------------------+-------------------------------------+
+| **Title**            | Getting Started with ESPHome        |
++----------------------+-------------------------------------+
+| **Author**           | Koen Vervloesem                     |
++----------------------+-------------------------------------+
+| **Publication date** | 2021-05-19                          |
++----------------------+-------------------------------------+
+| **Number of pages**  | 156                                 |
++----------------------+-------------------------------------+
+| **Price**            | € 29.95                             |
++----------------------+-------------------------------------+
+| **ISBN-13**          | 978-3-89576-441-7                   |
++----------------------+-------------------------------------+
+| **ISBN-10**          | 3-895764-41-8                   |
++----------------------+-------------------------------------+
+| **Publisher**        | Elektor International Media (EIM)   |
++----------------------+-------------------------------------+
 
 *************
 Included code
 *************
 
-TODO
+The directory `esphome <https://github.com/koenvervloesem/Getting-Started-with-ESPHome/tree/main/esphome>`_ contains all YAML files for the example code in this book. Each file name begins with the chapter where the example is explained.
+
+While the examples printed in the book are often fragments of code, the corresponding YAML files in this repository are complete ESPHome configurations and can be compiled as such. Make sure to copy the `secrets.yaml.example <https://github.com/koenvervloesem/Getting-Started-with-ESPHome/blob/main/esphome/secrets.yaml.example>`_ file to ``secrets.yaml`` and enter your own credentials. Also change the substitutions in the beginning of a YAML file to your own preferred values.
 
 *****************
 Download the code
 *****************
 
-TODO
+You can download the code all at once with `Git <https://git-scm.com/>`_:
+
+.. code-block:: shell
+
+  git clone https://github.com/koenvervloesem/Getting-Started-with-ESPHome.git
+
+The code is then downloaded into the directory ``Getting-Started-with-ESPHome``.
+
+You can also download a ZIP file of all code by clicking on the green button **Code** at the top right of this page and then on **Download ZIP**.
+
+Just selecting and copying code from the GitHub web page of a specific file you're interested in and pasting it in an editor may work, but is not recommended. Especially with YAML code the whitespace can become mixed up, which results in invalid code.
 
 ******
 Errata
