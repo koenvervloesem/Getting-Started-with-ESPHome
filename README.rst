@@ -18,7 +18,7 @@ About the book
 
 Espressif's ESP8266 and ESP32 microcontrollers have brought DIY home automation to the masses. However, not everyone is fluent in programming these microcontrollers with Espressif's C/C++ SDK, the Arduino core, or MicroPython. This is where ESPHome comes into its own: with this project, you don't *program* your microcontroller but *configure* it.
 
-This book demonstrates how to create your own home automation devices with ESPHome on an ESP32 microcontroller board. You'll learn how to combine all kinds of electronic components and automate complex behaviours. Your devices can work completely autonomously, and connect over Wi-Fi to your home automation gateways such as Home Assistant or MQTT broker.
+This book demonstrates how to create your own home automation devices with ESPHome on an ESP32 microcontroller board. You'll learn how to combine all kinds of electronic components and automate complex behaviours. Your devices can work completely autonomously, and connect over Wi-Fi to your home automation gateway such as Home Assistant or an MQTT broker.
 
 By the end of this book, you will be able to create your own custom home automation devices the way you want. Thanks to ESPHome and the ESP32, this is within everyone's grasp.
 
