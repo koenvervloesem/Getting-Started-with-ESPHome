@@ -4,7 +4,7 @@ YAML_FILES = chapter*.yaml appendix*.yaml
 .PHONY: build clean lint requirements
 
 build:
-	esphome $(YAML_FILES) compile
+	esphome compile $(YAML_FILES)
 
 clean:
 	rm -r $(BUILD_DIR)
