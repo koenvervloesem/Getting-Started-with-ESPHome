@@ -8,6 +8,27 @@ esphome:
   platform: $device_platform
   board: $device_board
 
+wifi:
+  ssid: "TEST"
+  password: "K6pra9B8o4kM"
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Test Fallback Hotspot"
+    password: "9dn2HuVfFddQ"
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  password: "gQ1d6k3ZJMt8"
+
+ota:
+  password: "gQ1d6k3ZJMt8"
+
 binary_sensor:
   - platform: status
     name: "$device_name status"
