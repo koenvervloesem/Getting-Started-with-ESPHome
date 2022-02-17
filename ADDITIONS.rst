@@ -15,4 +15,4 @@ Chapter 6: Remote communication
 Chapter 7: Displays
 *******************
 
-* `Showing a graph on a display with ESPHome <https://koen.vervloesem.eu/blog/showing-a-graph-on-a-display-with-esphome/>`: A blog post where I show an example of how to show graphs of sensor measurements on a local display. This uses the `graph <https://esphome.io/components/display/index.html#graphs>`_ component that was added to ESPHome 2021.10.
+* `Showing a graph on a display with ESPHome <https://koen.vervloesem.eu/blog/showing-a-graph-on-a-display-with-esphome/>`_: A blog post where I show an example of how to show graphs of sensor measurements on a local display. This uses the `graph <https://esphome.io/components/display/index.html#graphs>`_ component that was added to ESPHome 2021.10.
