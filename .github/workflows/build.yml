@@ -13,7 +13,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v1
@@ -25,8 +25,8 @@ jobs:
       - name: Lint YAML files
         run: |
           cp secrets.yaml.example secrets.yaml
-          make lint
+          LANG=C.UTF-8 make lint
         working-directory: esphome
       - name: Build code
-        run: make build
+        run: LANG=C.UTF-8 make build
         working-directory: esphome
