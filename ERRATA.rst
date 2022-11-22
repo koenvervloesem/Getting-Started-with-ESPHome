@@ -17,6 +17,12 @@ Chapter 2: Preparing your ESPHome environment
 * page 28: The ``--upload-port`` option has been renamed to ``--device`` in ESPHome 1.19.
 * page 36: Due to an ESPHome update, you need to add ``wifi`` and ``api`` components to the ``chapter2_substitutions.yaml`` file, otherwise the configuration doesn't compile. This is fixed `in the chapter2_substitutions.yaml file in this repository <https://github.com/koenvervloesem/Getting-Started-with-ESPHome/blob/main/esphome/chapter2_substitutions.yaml>`_.
 
+*******************
+Chapter 7: Displays
+*******************
+
+* page 133, 137: For the T-Display's display platform ``st7789v`` you now need to specify the option ``model: TTGO TDisplay 135x240``. This is fixed `in the chapter7_tdisplay_mqtt.yaml file in this repository <https://github.com/koenvervloesem/Getting-Started-with-ESPHome/blob/main/esphome/chapter7_tdisplay_mqtt.yaml>`_ and `in the chapter7_pages.yaml file in this repository <https://github.com/koenvervloesem/Getting-Started-with-ESPHome/blob/main/esphome/chapter7_pages.yaml>`_.
+
 ********
 Appendix
 ********
