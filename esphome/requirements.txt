@@ -1,3 +1,3 @@
 esphome==2022.6.0
-pillow==9.0.1
+pillow==9.3.0
 yamllint==1.26.0
